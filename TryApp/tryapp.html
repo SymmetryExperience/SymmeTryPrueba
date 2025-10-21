@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>REDI Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/appWeb.css">
+    <!-- Component Stylesheets -->
+    <link rel="stylesheet" href="css/toolbar.css">
+    <link rel="stylesheet" href="css/simetria.css">
+    <link rel="stylesheet" href="css/elementos.css">
+    <link rel="stylesheet" href="css/toolSymmetry.css">
+</head>
+<body>
+
+    
+    <div id="rotation-tooltip" class="hidden"></div>
+
+    <!-- ===== INICIO: MENÚ DE SYMMETRY ===== -->
+    <header>
+        <a href="../index.html#home" class="logo">
+            <img src="Images/imagotipo.png" class="logo-desktop" alt="Imagotipo SymmeTry">
+            <img src="Images/isotipo.png" class="logo-mobile" alt="Isotipo SymmeTry">
+        </a>
+        <button class="menu-toggle" id="menuToggle">
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+        </button>
+    </header>
+
+    <div class="fullscreen-menu" id="fullscreenMenu">
+        <div class="bg-gradient"></div>
+        <div class="bg-gradient"></div>
+        
+        <nav class="menu-content">
+            <div class="menu-item">
+                <a href="../index.html#about" class="menu-link">
+                    Acerca de<span class="menu-number">(01)</span>
+                </a>
+            </div>
+            <div class="menu-item">
+                <a href="../index.html#archive" class="menu-link">
+                    Experiencia<span class="menu-number">(02)</span>
+                </a>
+            </div>
+            <div class="menu-item">
+                <a href="TryApp/tryapp.html" class="menu-link">
+                    TryApp<span class="menu-number">(03)</span>
+                </a>
+            </div>
+            <div class="menu-item">
+                <a href="../index.html#contact" class="menu-link">
+                    Contacto<span class="menu-number">(04)</span>
+                </a>
+            </div>
+        </nav>
+
+        <div class="menu-footer">
+            <a href="#" class="social-link">Instagram</a>
+            <a href="#" class="social-link">Behance</a>
+            <a href="#" class="social-link">Twitter</a>
+        </div>
+    </div>
+    <!-- ===== FIN: MENÚ DE SYMMETRY ===== -->
+    
+    <!-- TOP BAR  -->
+    <div class="top-control-bar">
+        <button id="btn-upload-file" class="control-btn" title="Subir Archivo"><i data-lucide="cloud-upload"></i></button>
+        <button id="btn-use-camera" class="control-btn" title="Usar Cámara"><i data-lucide="camera"></i></button>
+        <button id="btn-download" class="control-btn" title="Descargar Diseño"><i data-lucide="download"></i></button>
+        <button id="btn-reset" class="control-btn" title="Eliminar Todo"><i data-lucide="trash-2"></i></button>
+        <div class="divider"></div>
+        <button id="btn-undo" class="control-btn" title="Deshacer (Ctrl+Z)" disabled><i data-lucide="undo-2"></i></button>
+        <button id="btn-redo" class="control-btn" title="Rehacer (Ctrl+Y)" disabled><i data-lucide="redo-2"></i></button>
+    </div>
+
+    <div id="canvas-container">
+        <canvas id="main-canvas"></canvas>
+        <div id="reflection-guide" class="hidden"></div>
+        <div id="rotation-guides" class="hidden">
+            <div class="guide-line" style="transform: rotate(0deg);"></div>
+            <div class="guide-line" style="transform: rotate(45deg);"></div>
+            <div class="guide-line" style="transform: rotate(90deg);"></div>
+            <div class="guide-line" style="transform: rotate(135deg);"></div>
+        </div>
+        <div id="translation-guides" class="hidden">
+            <div class="guide-line-vertical"></div>
+            <div class="guide-line-vertical"></div>
+            <div class="guide-line-vertical"></div>
+        </div>
+         <div id="selection-box" class="hidden"></div>
+
+         <!-- TOOLBAR -->
+         <div id="selection-toolbar" class="hidden">
+
+            <!-- Botón principal de organizar -->
+            <button id="btn-organize" class="control-btn" title="Organizar" disabled>
+                <img src="icons/organize.svg" alt="Organizar">
+            </button>
+
+            <!-- Opciones de organizar -->
+           <div id="toolbar-organize-options" class="toolbar-options-group">
+               <div class="divider"></div>
+               <button class="organize-btn" data-order="front" title="Pasar al Frente">
+                   <img src="icons/flip_to_front.svg" alt="Pasar al Frente">
+               </button>
+               <button class="organize-btn" data-order="backward" title="Pasar Detrás">
+                   <img src="icons/move_down.svg" alt="Detrás">
+               </button>
+               <button class="organize-btn" data-order="back" title="Pasar al Fondo">
+                   <img src="icons/flip_to_back.svg" alt="Pasar al Fondo">
+               </button>
+               <button class="organize-btn" data-order="forward" title="Pasar Delante">
+                   <img src="icons/move_up.svg" alt="Pasar Delante">
+               </button>
+           </div>
+            <!-- Botón principal de Alinear -->
+              
+            <button id="btn-align" class="control-btn" title="Alinear" disabled><i data-lucide="align-horizontal-justify-center"></i></button>
+            <!-- Opciones de alineación -->
+        
+            <div id="toolbar-align-options" class="toolbar-options-group">
+                <div class="divider"></div>
+                <button class="align-btn" data-align="left" title="Alinear a la Izquierda"><i data-lucide="align-start-vertical"></i></button>
+                <button class="align-btn" data-align="center-h" title="Centrar Horizontalmente"><i data-lucide="align-center-vertical"></i></button>
+                <button class="align-btn" data-align="right" title="Alinear a la Derecha"><i data-lucide="align-end-vertical"></i></button>
+                <button class="align-btn" data-align="top" title="Alinear Arriba"><i data-lucide="align-start-horizontal"></i></button>
+                <button class="align-btn" data-align="center-v" title="Centrar Verticalmente"><i data-lucide="align-center-horizontal"></i></button>
+                <button class="align-btn" data-align="bottom" title="Alinear Abajo"><i data-lucide="align-end-horizontal"></i></button>
+            </div>
+            
+           
+            <div id="toolbar-default-options" class="toolbar-options-group active">
+                <button id="btn-lock" class="control-btn" title="Bloquear" disabled><i class="material-symbols-outlined">lock_open</i></button>
+                <button id="btn-group" class="control-btn" title="Agrupar (Ctrl+G)" disabled><i data-lucide="group"></i></button>
+                <button id="btn-ungroup" class="control-btn" title="Desagrupar (Ctrl+Shift+G)" disabled><i data-lucide="ungroup"></i></button>
+                <button id="btn-toolbar-color" class="control-btn" title="Cambiar Color" disabled>
+                    <div id="toolbar-color-preview"></div>
+                </button>
+            </div>
+         </div>
+         
+         <!-- TOOLBAR DE SIMETRÍA -->
+        <div id="symmetry-toolbar" class="hidden">
+
+            <!-- Botón principal de Alinear -->
+            <button id="btn-align-symmetry" class="control-btn" title="Alinear">
+                <i data-lucide="align-horizontal-justify-center"></i>
+            </button>
+
+            <!-- Opciones de alineación -->
+            <div id="symmetry-align-options" class="toolbar-options-group">
+                <div class="divider"></div>
+                <button class="align-btn" data-align="left" title="Alinear a la Izquierda"><i data-lucide="align-start-vertical"></i></button>
+                <button class="align-btn" data-align="center-h" title="Centrar Horizontalmente"><i data-lucide="align-center-vertical"></i></button>
+                <button class="align-btn" data-align="right" title="Alinear a la Derecha"><i data-lucide="align-end-vertical"></i></button>
+                <button class="align-btn" data-align="top" title="Alinear Arriba"><i data-lucide="align-start-horizontal"></i></button>
+                <button class="align-btn" data-align="center-v" title="Centrar Verticalmente"><i data-lucide="align-center-horizontal"></i></button>
+                <button class="align-btn" data-align="bottom" title="Alinear Abajo"><i data-lucide="align-end-horizontal"></i></button>
+            </div>
+
+            <!-- Opciones por defecto -->
+            <div id="symmetry-default-options" class="toolbar-options-group active">
+                <button id="btn-toolbar-color-symmetry" class="control-btn" title="Cambiar Color" disabled>
+                    <div id="toolbar-color-preview-symmetry"></div>
+                </button>
+                <div class="divider"></div>
+                <button id="btn-accept-symmetry" class="control-btn symmetry-btn" title="Aceptar Simetría">
+                    <i data-lucide="check"></i>
+                </button>
+                <button id="btn-cancel-symmetry" class="control-btn symmetry-btn" title="Cancelar Simetría">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+        </div>
+</div>
+</div>
+    </div>
+
+    <!-- BOTTOM MENU BAR -->
+    <div class="control-bar">
+        <button id="btn-module" class="control-btn" title="Elegir Elemento">
+          <i class="material-symbols-outlined">shapes</i>
+          <span>Elementos</span>
+        </button>
+        <button id="btn-color" class="control-btn" title="Color y Opacidad" disabled><i data-lucide="palette"></i><span>Color</span></button>
+        <button id="btn-layers" class="control-btn" title="Organizar Capas" disabled><i data-lucide="layers"></i><span>Capas</span></button>
+        <div class="divider"></div>
+
+        <!-- ===== INICIO: BOTONES ACTUALIZADOS CON SVG ===== -->
+        <button id="btn-new-feature" class="control-btn" title="Reflexión">
+            <img src="icons/reflexión.svg" alt="Reflexión">
+            <span>Reflexión</span>
+        </button>
+        <button id="btn-rotation-symmetry" class="control-btn" title="Rotacion">
+            <img src="icons/rotacion.svg" alt="Rotación">
+            <span>Rotación</span>
+        </button>
+        <button id="btn-translation-symmetry" class="control-btn" title="Traslación">
+            <img src="icons/traslacion.svg" alt="Traslación">
+            <span>Traslación</span>
+        </button>
+        <!-- ===== FIN: BOTONES ACTUALIZADOS CON SVG ===== -->
+    </div>
+
+    <div id="panels-container">
+        <!-- Panel de Capas -->
+        <div id="panel-layers" class="popup-panel hidden">
+            <div id="layers-list-container"></div>
+            <template id="layer-item-template">
+                <div class="layer-item">
+                    <img class="layer-preview" src="">
+                    <span class="layer-name">Nombre de Capa</span>
+                    <div class="layer-actions">
+                        <button class="layer-action-btn lock-btn" title="Bloquear/Desbloquear capa">
+                            <i class="material-symbols-outlined">lock_open</i>
+                        </button>
+                        <button class="layer-action-btn visibility-btn" title="Mostrar/Ocultar capa">
+                            <i data-lucide="eye"></i>
+                        </button>
+                    </div>
+                </div>
+            </template>
+        </div>
+        
+        <!-- Otros Paneles (Color, Módulos, etc.) -->
+        <div id="panel-actions" class="popup-panel hidden">
+             <button class="btn-accept control-btn" title="Aceptar"><i data-lucide="check"></i></button>
+             <button class="btn-panel-delete control-btn" title="Borrar Selección"><i data-lucide="x"></i></button>
+        </div>
+        <div id="panel-color-actions" class="popup-panel hidden">
+            <button id="btn-accept-color" class="control-btn" title="Aceptar"><i data-lucide="check"></i></button>
+            <button id="btn-cancel-color" class="control-btn" title="Cancelar"><i data-lucide="x"></i></button>
+        </div>
+        <div id="panel-color" class="popup-panel hidden">
+            <div class="color-panel-main-content">
+                <div id="color-picker-main"><div class="pointer"></div></div>
+            </div>
+            <div class="color-panel-controls">
+                <div id="hue-slider"></div>
+                <div class="color-controls-wrapper">
+                    <div class="color-preview-section">
+                        <div id="color-preview-circle"></div>
+                    </div>
+                    <div class="color-inputs-section">
+                        <div id="rgb-inputs" class="color-input-group active">
+                            <div class="input-wrapper">
+                                <input type="number" id="red-input" min="0" max="255" value="94">
+                                <label for="red-input">R</label>
+                            </div>
+                            <div class="input-wrapper">
+                                <input type="number" id="green-input" min="0" max="255" value="155">
+                                <label for="green-input">G</label>
+                            </div>
+                            <div class="input-wrapper">
+                                <input type="number" id="blue-input" min="0" max="255" value="155">
+                                <label for="blue-input">B</label>
+                            </div>
+                        </div>
+                        <div id="hex-inputs" class="color-input-group">
+                            <div class="input-wrapper hex">
+                                <input type="text" id="hex-color-input">
+                                <label for="hex-color-input">HEX</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="color-mode-toggle" class="tool-btn" title="Cambiar modo de color"><i data-lucide="arrow-right-left"></i></button>
+                </div>
+                <div class="tool-section opacity-section">
+                    <label for="opacity-slider">Opacidad</label>
+                    <input type="range" id="opacity-slider" min="0" max="1" value="1" step="0.01">
+                    <span id="opacity-value">100%</span>
+                </div>
+            </div>
+        </div>
+        <div id="panel-module" class="popup-panel hidden">
+            <h3>Elige un Elemento</h3>
+            <div id="module-gallery" class="gallery-grid"></div>
+        </div>
+        <div id="panel-illustrations" class="popup-panel hidden">
+            <div class="illustration-options">
+                <button id="btn-use-camera" class="op-btn"><i data-lucide="camera"></i> Usar Cámara</button>
+                <button id="btn-upload-file" class="op-btn"><i data-lucide="upload"></i> Subir Archivo</button>
+                <input type="file" id="file-uploader" class="hidden" accept="image/*">
+            </div>
+            <div class="separator"></div>
+            <h3>O elige una ilustración de la galería</h3>
+            <div id="illustration-gallery" class="gallery-grid"></div>
+        </div>
+    </div>
+
+    <!-- Modal de Cámara -->
+    <div id="camera-modal" class="hidden">
+        <video id="camera-video" playsinline autoplay muted></video>
+        <div class="camera-actions">
+            <button id="btn-capture"><i data-lucide="aperture"></i></button>
+            <button id="btn-close-camera"><i data-lucide="x"></i></button>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+        <div id="toast-notification"></div>
+
+    <!-- Scripts -->
+    <script src="script/appWeb.js" defer></script>
+    <script src="script/toolbar.js" defer></script>
+    <script src="script/simetria.js" defer></script>
+    <script src="script/elementos.js" defer></script>
+    <script src="script/toolSymmetry.js" defer></script>
+   
+</body>
+</html>

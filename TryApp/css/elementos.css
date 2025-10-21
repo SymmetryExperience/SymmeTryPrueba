@@ -1,0 +1,115 @@
+/* Contenedor principal del panel Mobil */
+#panel-module {
+    --items-to-show: 6.6; 
+    --tile-size: 56px;
+    --tile-gap: 0.25rem;
+    width: calc(var(--items-to-show) * var(--tile-size) + (var(--items-to-show) - 1) * var(--tile-gap));
+    max-width: calc(100vw - 2rem); 
+
+    padding: 0.75rem;
+    padding-bottom: 0;
+}
+
+#panel-module h3 {
+    display: none; 
+    font-weight: 600;
+    font-size: 0.875rem;
+    margin-bottom: 0.75rem;
+    color: var(--color-texto-principal);
+    text-align: center;
+}
+
+/* La galería que contiene los elementos */
+#module-gallery {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--tile-gap);
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 0.75rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Estilo de cada 'botón' */
+#panel-module .asset-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: var(--tile-size);
+    height: var(--tile-size);
+    padding: 0.375rem;
+    border-radius: 0.5rem;
+}
+
+/* (la forma) dentro de cada 'botón' */
+#panel-module .asset-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Tablets y superior (desde 640px) */
+@media (min-width: 640px) {
+    #panel-module {
+        width: auto;
+        max-width: 36rem;
+        padding: 1rem;
+        --tile-size: 60px;
+        --tile-gap: 0.75rem;
+    }
+
+    #panel-module h3 {
+        display: block;
+        font-size: 1rem; 
+        margin-bottom: 1rem;
+    }
+
+    #module-gallery {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        overflow-y: auto;
+        overflow-x: hidden;
+        max-height: calc(1.4 * var(--tile-size) + var(--tile-gap));
+        padding-bottom: 0;
+        padding-right: 0.25rem;
+    }
+
+    #panel-module .asset-item {
+        width: auto;
+        height: auto;
+        aspect-ratio: 1 / 1; 
+        padding: 0.5rem;
+    }
+}
+
+/* Escritorios pequeños y superior (desde 1024px) */
+@media (min-width: 1024px) {
+    #panel-module {
+        --tile-size: 68px;
+        max-width: 48rem;
+    }
+    
+    #module-gallery {
+        grid-template-columns: repeat(8, 1fr);
+    }
+}
+
+
+/* --- Estilo Barra de Scroll --- */
+#module-gallery::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+#module-gallery::-webkit-scrollbar-track {
+    background: transparent;
+}
+#module-gallery::-webkit-scrollbar-thumb {
+    background-color: #d1d5db;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+#module-gallery::-webkit-scrollbar-thumb:hover {
+    background-color: #9ca3af;
+}

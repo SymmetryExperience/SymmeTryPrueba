@@ -1,0 +1,121 @@
+.top-control-bar {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--top-bar-height);
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 20;
+    box-sizing: border-box; 
+}
+
+/* SELECTOR SVG  */
+.top-control-bar .control-btn svg {
+    color: #374151; 
+    transition: color 0.2s ease-in-out; 
+    width: 24px;
+    height: 24px;
+}
+
+.top-control-bar .control-btn span {
+    display: none !important;
+}
+
+.top-control-bar .control-btn:hover:not(:disabled) {
+    background-color: #E5E7EB;
+}
+
+
+.top-control-bar .control-btn.active-feedback {
+    background-color: var(--fondo-activo-sutil); 
+}
+
+.top-control-bar .control-btn.active-feedback svg {
+    color: var(--color-activo); 
+}
+
+
+/* Adjust the divider style */
+.top-control-bar .divider {
+    height: 1.75rem;
+    margin: 0 0.5rem; 
+}
+
+/* PANEL DE ALINEACIÓN (RESPONSIVO) */
+#panel-align {
+    position: absolute;
+    top: 5.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.5rem;
+    width: auto; 
+    max-width: 90vw; 
+    flex-direction: row;
+}
+
+/* MÓVIL: Usar Flexbox para que el contenedor se ajuste al contenido */
+.align-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+/* Estilos responsivos para los botones de alineación */
+.align-btn {
+    background-color: #fff;
+    border: 1px solid var(--borde-sutil);
+    border-radius: 0.5rem;
+    padding: 0.75rem; 
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-texto-principal);
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.align-btn span {
+    display: none; /* Ocultar texto por defecto (móvil) */
+}
+
+.align-btn:hover {
+    background-color: #f2f7ff;
+    box-shadow: 0 0 0 2px var(--fondo-activo-sutil);
+}
+
+.align-btn i {
+    width: 1.25rem; 
+    height: 1.25rem;
+    color: #6b7280;
+}
+
+/* Estilos para escritorio: Volver a la cuadrícula Grid */
+@media (min-width: 768px) {
+    .align-grid {
+        display: grid; /* Restaurar Grid para escritorio */
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+    }
+    
+    .align-btn {
+        padding: 0.5rem 1rem; 
+        justify-content: flex-start; 
+    }
+    .align-btn span {
+        display: inline; /* Mostrar texto en escritorio */
+    }
+    .align-btn i {
+        width: 1rem; 
+        height: 1rem;
+    }
+}

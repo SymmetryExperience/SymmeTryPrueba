@@ -1,0 +1,175 @@
+/* TOP BAR STYLES */
+.top-control-bar {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    position: fixed;
+    top: 80px;
+    padding: 0.5rem;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 20;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.top-control-bar .control-btn {
+    color: #1F2937; 
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.75rem;
+    border-radius: 9999px;
+    width: 50px;
+    height: 50px;
+}
+
+.top-control-bar .control-btn:hover:not(:disabled) { 
+    background-color: #E5E7EB; 
+}
+
+.top-control-bar .control-btn:disabled { 
+    opacity: 0.5; 
+    cursor: not-allowed; 
+}
+
+.top-control-bar .control-btn.active-feedback {
+    background-color: rgba(59, 130, 246, 0.2);
+    color: #2563EB;
+}
+
+.top-control-bar .control-btn i[data-lucide] {
+    width: 24px;
+    height: 24px;
+}
+
+.top-control-bar .divider { 
+    width: 1px; 
+    height: 2rem; 
+    background-color: #D1D5DB; 
+}
+
+
+/* SELECTION TOOLBAR (MENU CONTEXTUAL ) */
+#selection-toolbar {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+    padding: 0.4rem;
+    border-radius: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    z-index: 50;
+    transform: translateX(-50%);
+    transition: opacity 0.15s ease-in-out, width 0.2s ease-in-out;
+    width: auto;
+    overflow: hidden;
+}
+
+.toolbar-options-group {
+    display: flex; 
+    align-items: center;
+    gap: 0.4rem;
+    flex-shrink: 0;
+    max-width: 0; 
+    opacity: 0; 
+    overflow: hidden; 
+    transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.toolbar-options-group.active {
+    max-width: 500px; 
+    opacity: 1;
+}
+
+
+/* General styles  */
+#selection-toolbar .control-btn,
+#selection-toolbar .align-btn,
+#selection-toolbar .organize-btn {
+    color: #1F2937;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.6rem;
+    border-radius: 9999px;
+    flex-shrink: 0;
+}
+
+#selection-toolbar .control-btn:hover:not(:disabled),
+#selection-toolbar .align-btn:hover:not(:disabled),
+#selection-toolbar .organize-btn:hover:not(:disabled) {
+    background-color: #E5E7EB;
+}
+
+/* Active Alinear */
+#btn-align.active,
+#btn-organize.active, 
+#selection-toolbar .control-btn.active {
+    color: #2563EB;
+    background: rgba(59, 130, 246, 0.2);
+}
+
+#selection-toolbar .control-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#selection-toolbar .control-btn .material-symbols-outlined {
+    font-size: 22px;
+    width: 22px;
+    height: 22px;
+}
+
+.toolbar-options-group .divider {
+    width: 1px;
+    height: 1.5rem;
+    background-color: #D1D5DB;
+    margin: 0 0.2rem;
+    flex-shrink: 0;
+}
+
+/* ICONOS SVG  */
+
+#selection-toolbar #btn-organize img{
+    width: 24px;
+    height: 24px;
+}
+#selection-toolbar .organize-btn img {
+    width: 26px;
+    height: 26px;
+}
+
+#btn-organize.active img {
+    filter: invert(38%) sepia(98%) saturate(2206%) hue-rotate(206deg) brightness(96%) contrast(92%);
+}
+
+
+
+#btn-toolbar-color {
+    padding: 0.6rem; 
+}
+
+#toolbar-color-preview {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    background-color: #E5E7EB; 
+    box-shadow: inset 0 0 2px rgba(0,0,0,0.1);
+    transition: background-color 0.2s ease-in-out;
+}
